@@ -1,0 +1,198 @@
+%equation contains section
+\numberwithin{equation}{section}  
+
+%PineGreen
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{airforceblue}{rgb}{0.27, 0.47, 0.6}
+\definecolor{Headblue}{rgb}{0.25, 0.37, 0.5}
+\definecolor{Linkblue}{rgb}{0.20, 0.4, 0.73}
+\newcommand{\hwMaincolor}{black}
+\newcommand{\hwRulecolor}{black}
+\def\chpcolor{airforceblue}
+\def\chpcolortxt{RoyalBlue}
+\def\sectionfont{\sffamily\LARGE}
+
+\setcounter{secnumdepth}{10}
+\newlength{\hwProblemIndent}
+\newlength{\hwProblemWidth}
+\newlength{\hwPartIndent}
+\newlength{\hwPartWidth}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=5pt
+
+%Setup section title and margin
+\setlength{\hwProblemIndent}{20pt}
+\setlength{\hwProblemWidth}{\textwidth}
+\setlength{\hwPartIndent}{20pt}
+\setlength{\hwPartWidth}{\textwidth}
+\addtolength{\hwProblemWidth}{-\hwProblemIndent}
+\addtolength{\hwPartWidth}{-5em}
+%Section redifining
+\titleformat{\section}[block]{\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}[block]{\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsection} {0em}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsubsection} {3em}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%Colorful Section
+\newcommand{\hsectionstrut}{\rule{0pt}{12.5pt}}
+\newcommand{\makesectionhead}[2]{%
+  {\par\vspace{20pt}%
+   \parindent 0pt\raggedleft\sectionfont
+   \colorbox{\chpcolor}{%
+     \parbox[t]{50pt}{\color{white}\hsectionstrut\hfill#2}%
+   }%
+   \begin{minipage}[t]{\dimexpr\textwidth-50pt-2\fboxsep\relax}
+   \color{\chpcolortxt}\hsectionstrut\hspace{5pt}#1
+   \end{minipage} \\
+   \vspace{10pt}%
+  }
+}
+\newcommand\customfont[1]{{ #1 }}
+
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\customfont{\color{\hwMaincolor}\hmwkAuthorName}} % Top left header
+\chead{\customfont{\color{\hwMaincolor}\hmwkTitle}} % Top center head
+\rhead{\customfont{\color{\hwMaincolor}\firstxmark}}% Top right header
+\lfoot{\customfont{\color{\hwMaincolor}\lastxmark}} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{\customfont{\color{\hwMaincolor}Page\ \thepage\ of\ \protect\pageref{LastPage}}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+\makeatletter
+\renewcommand\headrule{\color{\hwRulecolor} \if@fancyplain \let \headrulewidth \plainheadrulewidth \fi \hrule \@height \headrulewidth \@width \headwidth \vskip \headrulewidth }
+\renewcommand\footrule{\color{\hwRulecolor} \if@fancyplain \let \footrulewidth \plainfootrulewidth \fi \vskip -\footruleskip \vskip \footrulewidth \hrule \@width \headwidth \@height \footrulewidth \vskip \footruleskip }
+
+\makeatother
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\lstset{language=Matlab,%
+    basicstyle=\footnotesize,
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+    xleftmargin=33pt,
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[2]{{
+\renewcommand{\homeworkProblemName}{#1 Part} % Assign \homeworkProblemName the name of the problem
+\makesectionhead{#2}{#1}% Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+
+
+\newcommand{\bijooImage}[3][0.8]{
+\begin{minipage}{\linewidth}
+\includegraphics[width=#1\columnwidth]{Resources/#2.jpg}
+\centering
+\captionof{figure}{#3}
+\end{minipage}~\\
+}
+
+\newcommand{\bijooDImage}[3][0.8]{
+\begin{minipage}{#1\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/#2.jpg}
+\captionsetup{width=0.8\textwidth}
+\centering
+\captionof{figure}{#3}
+\end{minipage}
+}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1, key2, key3}, % list of keywords
+    pdfnewwindow=true,      % links in new PDF window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=Black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=Black,        % color of links to bibliography
+    filecolor=Black,      % color of file links
+    urlcolor=Linkblue           % color of external links
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%Listing Format%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareCaptionFont{white}{ \color{white} }
+\DeclareCaptionFormat{listing}{
+  \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+    \parbox{\textwidth}{\hspace{15pt}#1#2#3}
+  }
+}
+\captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize} }
+
+      %
+     % %
+    % % %
+   %  %  %
+  %       %
+ %    %    %
+%%%%%%%%%%%%%
+\setcounter{section}{1}
+%\setcounter{secnumdepth}{3} % Removes default section numbers

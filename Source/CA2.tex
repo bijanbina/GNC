@@ -1,0 +1,369 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\input{packages}
+\input{hw_bijoo}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{CA \#1} % Assignment title
+\newcommand{\hmwkDueDate}{ Friday, 19 Farvardin 1395 } % Due date
+\newcommand{\hmwkClass}{Linear Control Systems} % Course/class
+\newcommand{\hmwkClassTime}{} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Dr. Aras Adhami} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Bijan Binaee} % Your name
+\newcommand{\hmwkStudentNum}{810192556} % Your student number
+
+\input{hw_title}
+\renewcommand{\lstlistingname}{Matlab Codes}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\pagecolor{white}
+\maketitle
+\thispagestyle{empty}
+\setcounter{page}{0}
+\newpage
+
+
+%----------------------------------------------------------------------------------------
+%	Modeling
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}{1st}{Modeling}
+\vspace{-1.5em}
+
+\subsection{State-Space Representation}
+
+\begin{equation}
+X \triangleq \begin{bmatrix}
+x_1(t)\\
+x_2(t)\\
+x_3(t)
+\end{bmatrix} = \begin{bmatrix}
+z(t)\\
+\dot{z}(t)\\
+i(t)
+\end{bmatrix}
+\end{equation}
+\\Rewriting dynamic equation
+
+\begin{equation}
+R~i(t) + \frac{2 \gamma}{z(t)+\beta} \dot{i}(t) - \frac{2 \gamma}{(z(t) + \beta)^2} i(t) ~\dot{z}(t) = u(t) 
+\end{equation}
+
+\begin{equation}
+m \ddot{z}(t) = m~g - \gamma (\frac{i(t)}{z(t)+\beta})^2
+\end{equation}
+\\by inspecting Eq. (1.2) and Eq. (1.3) State-Equation are
+
+\begin{equation}
+\begin{split}
+&\dot{x}_1 (t) = x_2 (t)\\
+&\dot{x}_2 (t) = g - \frac{\gamma}{m}(\frac{x_3(t)}{x_1(t)+\beta})^2\\
+&\dot{x}_3 (t) = \frac{x_3(t)~x_2(t)}{x_1(t) + \beta}  + (u(t) - R~x_3(t))\frac{x_1(t) + \beta}{2\gamma}
+\end{split}
+\end{equation}
+\\\subsection{Linierazation}
+From Jacobian linearization
+  \begin{equation}
+    A = \frac{\partial f}{\partial x} = 
+    \begin{bmatrix}
+      0                                                                           & 1                            & 0\\
+      \frac{2 \gamma}{m}\frac{(x_3(t))^2}{(x_1(t)+\beta)^3}                       & 0                            & \frac{- 2 \gamma}{m}\frac{x_3(t)}{(x_1(t)+\beta)^2}\\
+      \frac{-x_3(t) x_2(t)}{(x_1(t) + \beta)^2} +\frac{u(t) - R~x_3(t)}{2\gamma}  & \frac{x_3(t)}{x_1(t)+\beta}  &  \frac{x_2(t)}{x_1(t) + \beta} - \frac{R(x_1(t) + \beta)}{2\gamma}
+    \end{bmatrix}
+  \end{equation}
+  \begin{equation}
+      B = \frac{\partial f}{\partial u} = \begin{bmatrix}
+      0                                                     \\
+      0                                                     \\
+      \frac{x_1(t) + \beta}{2\gamma}
+      \end{bmatrix}u(t)
+  \end{equation}
+\\and\\
+    \begin{equation}
+      \begin{gathered}
+        x_e = \begin{bmatrix}
+        0.002\\
+        0\\
+        0.8391
+        \end{bmatrix}~,~ u_e = R ~ i(t) = 8.391 \\
+        \beta = 2 \times 10^{-5} ~ , ~ \gamma = 1.131 \times 10^{-5} ~ , ~ m = 0.2
+      \end{gathered}
+    \end{equation}
+\\substituing Eq. (1.7) in Eq. (1.6) and Eq (1.5)\\
+  \begin{equation}
+    A = 
+    \begin{bmatrix}
+      0       & 1         & 0                                         \\
+      9661.31 & 0         & -23.2581                                  \\
+      0       & 415.396   & -893.015
+    \end{bmatrix}
+    ~,~
+    B = 
+    \begin{bmatrix}
+      0\\
+      0\\
+      89.3015
+    \end{bmatrix}
+  \end{equation}
+In vector-matrix form,\\
+  \begin{equation}
+    \begin{bmatrix}
+      \dot{x}_1(t)\\
+      \dot{x}_2(t)\\
+      \dot{x}_3(t)
+    \end{bmatrix} 
+    = 
+    \begin{bmatrix}
+      0       & 1         & 0                                         \\
+      9661.31 & 0         & -23.2581                                  \\
+      0       & 415.396   & -893.015
+    \end{bmatrix}
+    \begin{bmatrix}
+      x_1(t)\\
+      x_2(t)\\
+      x_3(t)
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+      0\\
+      0\\
+      89.3015
+    \end{bmatrix}
+    u(t)
+  \end{equation}
+  
+
+\end{homeworkProblem}
+
+
+
+%----------------------------------------------------------------------------------------
+%	Simulation
+%----------------------------------------------------------------------------------------
+
+
+
+
+\begin{homeworkProblem}{2nd}{Simulation}
+\addtocounter{section}{1}
+\setcounter{subsection}{0}
+\setcounter{equation}{0}
+
+
+\subsection{Eigen Values}
+From matlab \textit{eig} command eigen vector,\\
+  \begin{equation}
+    e =
+    \begin{bmatrix}
+       93.5172\\
+     -104.6099\\
+     -881.9214\\
+    \end{bmatrix}
+  \end{equation}
+\\~\\
+\\Eq (2.1) imply a positive pole of system which cause an unstable behavior due to specific inputs. In the Active Magnetic Bearing, this pole, cause oscillating in bearing position.
+
+\subsection{Transfer Function}
+From control theory
+  \begin{equation}
+    H(s) = \mathbf{C} ~ (s\mathbf{I}-\mathbf{A})^{-1} ~ \mathbf{B}
+  \end{equation}
+In the case \\
+  \begin{equation}
+    y =     
+    \begin{bmatrix}
+      1    &  0   &   0
+    \end{bmatrix} 
+    X
+  \end{equation}
+\\then\\
+  \begin{equation}
+    C =     
+    \begin{bmatrix}
+      1    &  0   &   0
+    \end{bmatrix} 
+    ~ , ~ 
+    D = 0
+  \end{equation}
+\\Using matlab \textit{ss2tf} \\
+  \begin{equation}
+    H(s) = \frac{-2077}{s^3+893.0140 s ^ 2 + 0.0117 s + 8.627 \times 10^6}
+  \end{equation}
+\\employing matlab \textit{tf2ss} command, the state equation is\\
+  \begin{equation}
+    \begin{gathered}
+      A = 
+      \begin{bmatrix}
+        -893.0140  & -0.0117   & 8.627 \times 10^6                                         \\
+        1          & 0         & 0                                 \\
+        0          & 1         & 0
+      \end{bmatrix}
+      ~,~
+      B = 
+      \begin{bmatrix}
+        1\\
+        0\\
+        0
+      \end{bmatrix}
+      \\~\\
+      C = 
+      \begin{bmatrix}
+        0       & 0         & -2077                                         \\
+      \end{bmatrix}
+      ~,~
+      D = 0
+    \end{gathered}
+  \end{equation}
+  Comparing Eq. (2.6) and Eq. (1.9) the state equation is changed which imply that state variables are vary to choose from.
+  
+\subsection{Systems Pole}
+  Input
+\lstinputlisting[caption=Frequency Response]{Codes/ca1.m}
+    \begin{equation}
+      H(s) = \mathbf{C} ~ (s\mathbf{I}-\mathbf{A})^{-1} ~ \mathbf{B}
+    \end{equation}
+  In the case \\
+    \begin{equation}
+      y =     
+      \begin{bmatrix}
+        1    &  0   &   0
+      \end{bmatrix} 
+      X
+    \end{equation}
+  \\then\\
+    \begin{equation}
+      C =     
+      \begin{bmatrix}
+        1    &  0   &   0
+      \end{bmatrix} 
+      ~ , ~ 
+      D = 0
+    \end{equation}
+  \\Using matlab \textit{ss2tf} \\
+    \begin{equation}
+      H(s) = \frac{-2077}{s^3+893.0140 s ^ 2 + 0.0117 s + 8.627 \times 10^6}
+    \end{equation}
+  \\employing matlab \textit{tf2ss} command, the state equation is\\
+    \begin{equation}
+      \begin{gathered}
+        A = 
+        \begin{bmatrix}
+          -893.0140  & -0.0117   & 8.627 \times 10^6                                         \\
+          1          & 0         & 0                                 \\
+          0          & 1         & 0
+        \end{bmatrix}
+        ~,~
+        B = 
+        \begin{bmatrix}
+          1\\
+          0\\
+          0
+        \end{bmatrix}
+        \\~\\
+        C = 
+        \begin{bmatrix}
+          0       & 0         & -2077                                         \\
+        \end{bmatrix}
+        ~,~
+        D = 0
+      \end{gathered}
+    \end{equation}
+    Comparing Eq. (2.6) and Eq. (1.9) the state equation is changed which imply that state variables are vary to choose from.
+  
+  
+  
+  
+  
+  
+\end{homeworkProblem}
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+\newpage
+\begin{homeworkProblem}{2nd}{Design}
+\vspace{-1.5em}
+\addtocounter{section}{1}
+\setcounter{subsection}{0}
+\subsection{‫‪Constants}
+To calculate parameter, $\lambda_g$ is required. from microwave engineering  
+$$\beta = \sqrt{k^2 - \frac{m \pi}{a} ^ 2 - \frac{n \pi}{b} ^ 2}$$ 
+$$ a = 3.75 mm ~~ , ~~ b = 20.06 mm  ~~ , ~~ f = 55.6 GHz $$
+thus\\
+$$ \lambda_g = \frac{2 \pi}{\beta} = 7.73 mm $$
+\subsection{Parameters Calculation}
+Remark from the previous section 
+$$ l = \frac{\lambda}{4} = 1.93 mm $$
+$$ \text{offset} = \sqrt{2} ~ \frac{\lambda}{4} = 2.72 mm $$
+$$ w = \frac{l}{7} = 0.3 mm $$
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}{3rd}{Results}
+\vspace{-1.5em}
+\addtocounter{section}{1}
+\setcounter{subsection}{0}
+\subsection{‫‪Optimization}
+By sweep on on w, offset and l to attain -20dB coupling factor and maximum bandwidth following parameter are picked up.\\
+$$ l = 1.6 ~~ , ~~ w = 0.4 ~~ , ~~  \text{offset} = 2.72 $$
+A sample sweep on parameter "W" shown in Fig 2. The results shown as W increases the coupling factor increases but it affect decoupling factor in a harmful way.\\
+\begin{minipage}{\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/w}
+\centering
+\captionof{figure}{power transfer to each port from port 1 over 300u to 500u on "W"}
+~\\
+\end{minipage}
+\subsection{Final Structure}
+\begin{minipage}{\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/view}
+\centering
+\captionof{figure}{proposed structure in HFSS design view}
+~\\
+\end{minipage}
+\begin{minipage}{\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/side}
+\centering
+\captionof{figure}{proposed structure from the side view}
+~\\
+\end{minipage}
+\begin{minipage}{\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/up}
+\centering
+\captionof{figure}{proposed structure from the top view}
+~\\
+\end{minipage}
+\subsection{Frequency Sweep}
+\begin{minipage}{\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/BW}
+\centering
+\captionof{figure}{power transfer on frequency 53GHz to 58GHz }
+~\\
+\end{minipage}
+\subsection{Fields Plot}
+\begin{minipage}{\linewidth}
+\includegraphics[width=0.8\columnwidth]{Resources/Fields}
+\centering
+\captionof{figure}{Ridge‬‬ ‫‪Waveguide‬‬ Imaginary propagation constant frequency sweep for $TE_{01}$ and $TE_{20}$}
+~\\
+\subsection{Results}
+$$ l = 1.6 ~~ , ~~ w = 0.4 ~~ , ~~  \text{offset} = 2.72 ~~ , ~~ f_o = 55.6GHz $$
+$$ \text{Coupling Factor} = -20dB ~~ , ~~ \text{deCoupling Factor} < -52dB ~~ , ~~  \text{Minimum Bandwidth} = 5GHz $$
+\end{minipage}
+\end{homeworkProblem}
+\end{document}
