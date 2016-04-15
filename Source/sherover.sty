@@ -1,3 +1,7 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sherover}[2016/04/11 SherOver]
+% use RequirePackage instead of usepackage
+% this provide using before \documentclass command
 \usepackage{fancyhdr} % Required for custom headers
 \usepackage{hyperref} % Required for links
 \usepackage{extramarks} % Required for headers and footers
@@ -12,4 +16,13 @@
 \usepackage{changepage,titlesec} % Required for sectioning and margin
 \usepackage{lastpage} % Required to determine the last page for the footer
 \usepackage{amssymb} % Used for math sign use
+
+\usepackage{commath}
+\usepackage{mathptmx}
+
+%import sherover classes
+\input{/home/bijan/Project/SherOver/Source/hw_bijoo}
+\input{/home/bijan/Project/SherOver/Source/hw_title}
+
+
 %PineGreen

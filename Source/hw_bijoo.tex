@@ -140,7 +140,7 @@
 
 \newcommand{\bijooImage}[3][0.8]{
 \begin{minipage}{\linewidth}
-\includegraphics[width=#1\columnwidth]{Resources/#2.jpg}
+\includegraphics[width=#1\columnwidth]{Resources/#2}
 \centering
 \captionof{figure}{#3}
 \end{minipage}~\\
@@ -175,9 +175,9 @@
     urlcolor=Linkblue           % color of external links
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%Listing Format%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%Listing Format
+%
 
 \DeclareCaptionFont{white}{ \color{white} }
 \DeclareCaptionFormat{listing}{
@@ -194,5 +194,26 @@
   %       %
  %    %    %
 %%%%%%%%%%%%%
-\setcounter{section}{1}
+%\setcounter{section}{1}
 %\setcounter{secnumdepth}{3} % Removes default section numbers
+
+%
+%Bijan Codes
+%
+
+\newcommand{\bsection}[1]{
+  \begin{homeworkProblem}{
+        \ifcase\value{section}%
+        1st\or%
+        2nd\or%
+        3rd\or%
+        4th\or%
+        5th\else%
+        6th\fi%
+  }{#1}
+  \addtocounter{section}{1}
+  \setcounter{subsection}{0}
+  \setcounter{equation}{0}
+  \addcontentsline{toc}{section}{\typeout{\thesection} #1}
+\vspace{-1.5em}
+}
