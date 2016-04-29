@@ -34,7 +34,7 @@
 \addtolength{\hwProblemWidth}{-\hwProblemIndent}
 \addtolength{\hwPartWidth}{-5em}
 %Section redifining
-\titleformat{\section}[block]{\bfseries}{\thesection.}{1em}{}
+%\titleformat{\section}[block]{\bfseries}{\thesection.}{1em}{}
 \titleformat{\subsection}[block]{\bfseries}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}[block]{}{\thesubsubsection}{1em}{}
 \titlespacing*{\subsection} {0em}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
@@ -214,6 +214,6 @@
   \addtocounter{section}{1}
   \setcounter{subsection}{0}
   \setcounter{equation}{0}
-  \addcontentsline{toc}{section}{\typeout{\thesection} #1}
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
 \vspace{-1.5em}
 }
