@@ -211,9 +211,10 @@
         5th\else%
         6th\fi%
   }{#1}
+  \phantomsection
   \addtocounter{section}{1}
   \setcounter{subsection}{0}
   \setcounter{equation}{0}
-  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection} . #1}
 \vspace{-1.5em}
 }

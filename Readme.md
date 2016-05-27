@@ -2,7 +2,7 @@
 
 SherOver is a latex template for computer assignments and homework
 
-## Command Lists
+##List of Commands
 ###\bsection
 create blue section
 ###\bijooImage
